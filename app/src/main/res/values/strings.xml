@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WeatherTest</string>
+    <string name="toast_error_text">Error occurred</string>
+</resources>
