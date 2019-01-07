@@ -20,6 +20,7 @@ class App : Application(), UiComponentHolder {
 
         DaggerUiComponent.builder()
                 .domainProvider(domainComponent)
+                .appContext(applicationContext)
                 .build()
     }
 }

@@ -8,4 +8,5 @@ interface CityRepo {
     fun getAll(): Observable<DataStatus<List<City>>>
     fun addCity(city: City): Observable<DataStatus<Unit>>
     fun removeCity(city: City): Observable<DataStatus<Unit>>
+    fun resolveCity(lat: Double, lon: Double): Observable<DataStatus<City>>
 }

@@ -4,10 +4,10 @@ import com.blinkev.weathertest.data.dto.GetCityWeatherResp
 import com.blinkev.weathertest.domain.entity.CityWeather
 import javax.inject.Inject
 
-class GetCityWeatherRespToEntityMapperImpl @Inject constructor(
+class GetCityWeatherRespMapperImpl @Inject constructor(
     private val dateMapper: DateMapper,
     private val hourMapper: HourWeatherDtoToEntityMapper
-): GetCityWeatherRespToEntityMapper {
+): GetCityWeatherRespMapper {
 
     override fun map(resp: GetCityWeatherResp): List<CityWeather> = resp.data.weather.map { dayDto ->
 

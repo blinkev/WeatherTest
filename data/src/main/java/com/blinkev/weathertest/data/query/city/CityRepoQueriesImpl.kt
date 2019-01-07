@@ -1,7 +1,10 @@
 package com.blinkev.weathertest.data.query.city
 
 import android.content.Context
+import com.blinkev.weathertest.data.api.WeatherApi
 import com.blinkev.weathertest.data.query.city.mapper.CityListPrefMapper
+import com.blinkev.weathertest.data.query.city.mapper.LocationMapper
+import com.blinkev.weathertest.data.query.city.mapper.ResolveCityNameRespMapper
 import com.blinkev.weathertest.domain.entity.City
 import com.blinkev.weathertest.domain.exception.StorageException
 import com.blinkev.weathertest.domain.repo.city.AddCityQuery
@@ -13,7 +16,10 @@ import javax.inject.Inject
 
 class CityRepoQueriesImpl @Inject constructor(
     private val appContext: Context,
-    private val cityListMapper: CityListPrefMapper
+    private val cityListMapper: CityListPrefMapper,
+    private val api: WeatherApi,
+    private val locationMapper: LocationMapper,
+    private val resolveCityRespMapper: ResolveCityNameRespMapper
 ) : CityRepoQueries {
 
     companion object {
@@ -38,9 +44,13 @@ class CityRepoQueriesImpl @Inject constructor(
     override fun remove(city: City): Observable<Unit> =
         Observable.fromCallable {
             saveCitiesToPref(
-                getCitiesFromPref().filter { it == city }
+                getCitiesFromPref().filterNot { it == city }
             )
         }
+
+    override fun resolve(lat: Double, lon: Double): Observable<City> = api
+        .resolveCityName(locationMapper.map(lat, lon))
+        .map(resolveCityRespMapper::map)
 
     private fun getCitiesFromPref(): List<City> = appContext
         .getSharedPreferences(CITY_LIST_PREF_NAME, Context.MODE_PRIVATE)

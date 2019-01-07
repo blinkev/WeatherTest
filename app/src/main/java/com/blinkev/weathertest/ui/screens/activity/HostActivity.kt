@@ -1,15 +1,18 @@
 package com.blinkev.weathertest.ui.screens.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.blinkev.weathertest.domain.entity.City
+import com.blinkev.weathertest.ui.R
 import com.blinkev.weathertest.ui.di.UiComponentHolder
 import com.blinkev.weathertest.ui.screens.activity.di.HostActivityChildComponentProvider
 import com.blinkev.weathertest.ui.screens.activity.di.HostActivityComponent
 import com.blinkev.weathertest.ui.screens.activity.di.HostActivityModule
 import com.blinkev.weathertest.ui.screens.cities.CitiesFragment
 import com.blinkev.weathertest.ui.screens.cities.CitiesRouter
+import com.blinkev.weathertest.ui.screens.weather.WeatherFragment
 import javax.inject.Inject
 
 class HostActivity : AppCompatActivity(), CitiesRouter, HostActivityChildComponentProvider {
@@ -24,7 +27,7 @@ class HostActivity : AppCompatActivity(), CitiesRouter, HostActivityChildCompone
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host)
 
-        if (savedInstanceState == null) showFirstFragment()
+        //if (savedInstanceState == null) showFirstFragment()
     }
 
     private fun setupComponent() {
@@ -47,13 +50,16 @@ class HostActivity : AppCompatActivity(), CitiesRouter, HostActivityChildCompone
         }
     }
 
-    private fun showFirstFragment() {
+    /*private fun showFirstFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerView, CitiesFragment())
             .commit()
-    }
+    }*/
 
     override fun routeToCityWeather(city: City) {
-
+        /*supportFragmentManager.beginTransaction()
+                .replace(R.id.containerView, WeatherFragment.newInstance(city))
+                .addToBackStack(WeatherFragment::class.java.name)
+                .commit()*/
     }
 }

@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:background="@color/grey_light"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabView"
@@ -17,8 +19,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="end|bottom"
-        android:scaleType="center"
         app:fabSize="normal"
-        android:src="@drawable/ic_action_name"/>
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/colorPrimary"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </FrameLayout>

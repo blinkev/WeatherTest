@@ -5,6 +5,7 @@ import com.blinkev.weathertest.data.query.city.CityRepoQueriesImpl
 import com.blinkev.weathertest.domain.repo.city.AddCityQuery
 import com.blinkev.weathertest.domain.repo.city.GetCityListQuery
 import com.blinkev.weathertest.domain.repo.city.RemoveCityQuery
+import com.blinkev.weathertest.domain.repo.city.ResolveCityQuery
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -28,4 +29,8 @@ class CityRepoQueriesModule {
     @Singleton
     @Provides
     fun provideRemoveCityQuery(query: CityRepoQueries): RemoveCityQuery = query
+
+    @Singleton
+    @Provides
+    fun provideResolveCityQuery(query: CityRepoQueries): ResolveCityQuery = query
 }

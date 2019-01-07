@@ -11,9 +11,14 @@ import java.math.BigDecimal
 
 interface CitiesViewModel : BaseViewModel<CitiesFragmentComponent> {
     val cities: LiveData<DataStatus<List<CityItem>>>
+    val isFirstRunSetting: LiveData<DataStatus<Boolean>>
+
+    fun fetchFirstRunSetting()
+    fun disableFirstRunSetting()
+
+    fun detectCity(lat: Double, lon: Double)
 
     fun fetchCities()
     fun addCity(name: String)
-    fun onCityItemClick(item: CityItem)
     fun onCityItemRemoveClick(item: CityItem)
 }

@@ -1,5 +1,6 @@
 package com.blinkev.weathertest.data.query.weather.mapper
 
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -7,7 +8,7 @@ import javax.inject.Inject
 class TimeMapperImpl @Inject constructor() : TimeMapper {
 
     private val locale = Locale.getDefault()
-    private val formatter = SimpleDateFormat("Hmm", locale)
+    private val formatter = SimpleDateFormat("HHmm", locale)
 
     override fun map(day: Date, time: String): Date {
         if (time.length == 1) return day
@@ -16,7 +17,7 @@ class TimeMapperImpl @Inject constructor() : TimeMapper {
 
         return Calendar.getInstance(locale).apply {
             this.time = day
-            set(Calendar.HOUR, hour)
+            set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
         }.time
     }
@@ -24,9 +25,15 @@ class TimeMapperImpl @Inject constructor() : TimeMapper {
     private fun getHourAndMinute(hourAndMinute: String): Pair<Int, Int> {
 
         val calendar = Calendar.getInstance(locale).apply {
-            time = formatter.parse(hourAndMinute)
+            time = formatter.parse(hourAndMinute.addLeadingZeroIfNeeded())
         }
 
-        return Pair(calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE))
+        return Pair(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+    }
+
+    private fun String.addLeadingZeroIfNeeded(): String = if (this.length == 3) {
+        "0" + this
+    } else {
+        this
     }
 }

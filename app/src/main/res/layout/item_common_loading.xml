@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.blinkev.weathertest.ui.screens.common.item.CommonLoadingItem" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.text}"
+                android:textColor="@color/grey_dark"
+                tools:text="Loading..."/>
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

@@ -15,7 +15,7 @@ abstract class BaseViewModelImpl<C> : ViewModel(), BaseViewModel<C> {
 
     override fun onCleared() = compositeDisposable.clear()
 
-    protected fun <T> Observable<DataStatus<T>>.trackAndSubscribe(operationId: Int, onNext: (DataStatus<T>) -> Unit) {
+    protected fun <T> Observable<DataStatus<T>>.trackAndSubscribe(operationId: Int, onNext: (DataStatus<T>) -> Unit = {}) {
         if (!operationSet.contains(operationId)) {
             compositeDisposable.add(this
                 .doOnNext {

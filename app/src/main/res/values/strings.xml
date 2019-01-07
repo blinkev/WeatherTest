@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">WeatherTest</string>
+
+    <string name="common_add">Add</string>
+    <string name="common_cancel">Cancel</string>
+
     <string name="toast_error_text">Error occurred</string>
+    <string name="add_city_dialog_title">Type name of the city</string>
+    <string name="weather_loading_text">Loading...</string>
+    <string name="weather_error_text">Error. Click to retry</string>
+    <string name="today_word">Today</string>
+    <string name="tomorrow_word">Tomorrow</string>
+    <string name="add_current_location_dialog_title">Add current location city to list?</string>
 </resources>
