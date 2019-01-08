@@ -10,10 +10,12 @@ abstract class BaseViewModelImpl<C> : ViewModel(), BaseViewModel<C> {
 
     override var screenComponent: C? = null
 
-    protected val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
     private val operationSet = hashSetOf<Int>()
 
-    override fun onCleared() = compositeDisposable.clear()
+    override fun onCleared() {
+        compositeDisposable.clear()
+    }
 
     protected fun <T> Observable<DataStatus<T>>.trackAndSubscribe(operationId: Int, onNext: (DataStatus<T>) -> Unit = {}) {
         if (!operationSet.contains(operationId)) {

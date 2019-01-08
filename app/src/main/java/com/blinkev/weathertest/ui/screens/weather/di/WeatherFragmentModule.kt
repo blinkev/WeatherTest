@@ -16,18 +16,11 @@ import dagger.Module
 import dagger.Provides
 
 @Module(includes = [WeatherFormatterModule::class])
-class WeatherFragmentModule(
-        private val viewModel: WeatherViewModel,
-        private val city: City?
-) {
+class WeatherFragmentModule(private val viewModel: WeatherViewModel) {
 
     @FragmentScope
     @Provides
     fun provideViewModel(): WeatherViewModel = viewModel
-
-    @FragmentScope
-    @Provides
-    fun provideCity(): City? = city
 
     @FragmentScope
     @Provides

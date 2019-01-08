@@ -19,6 +19,12 @@ buildscript {
     ext.glide_version = '4.8.0'
     ext.junit_version = '4.12'
     ext.nav_version = '1.0.0-alpha06'
+    ext.mockito_version = '2.15.0'
+    ext.mockito_kotlin_version = '1.5.0'
+    ext.play_service_location_version = '15.0.0'
+    ext.rx_location_version = '1.0.5'
+    ext.rx_permission_version = '0.10.2'
+    ext.android_arch_testing_version = '1.1.1'
 
     repositories {
         google()

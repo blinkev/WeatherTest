@@ -5,4 +5,4 @@ import com.blinkev.weathertest.domain.repo.city.GetCityListQuery
 import com.blinkev.weathertest.domain.repo.city.RemoveCityQuery
 import com.blinkev.weathertest.domain.repo.city.ResolveCityQuery
 
-interface CityRepoQueries : GetCityListQuery, AddCityQuery, RemoveCityQuery, ResolveCityQuery
+interface CityRepoGetAddRemoveQueries : GetCityListQuery, AddCityQuery, RemoveCityQuery

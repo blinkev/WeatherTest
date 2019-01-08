@@ -9,15 +9,19 @@ class GetCityWeatherRespMapperImpl @Inject constructor(
     private val hourMapper: HourWeatherDtoToEntityMapper
 ): GetCityWeatherRespMapper {
 
-    override fun map(resp: GetCityWeatherResp): List<CityWeather> = resp.data.weather.map { dayDto ->
+    override fun map(resp: GetCityWeatherResp): List<CityWeather> = resp.data.weather.mapNotNull { dayDto ->
 
-        val date = dateMapper.map(dayDto.date)
+        if (dayDto.hourly.isNotEmpty()) {
+            val date = dateMapper.map(dayDto.date)
 
-        CityWeather(
-            date = date,
-            hours = dayDto.hourly.map { hourDto ->
-                hourMapper.map(day = date, dto = hourDto)
-            }
-        )
+            CityWeather(
+                date = date,
+                hours = dayDto.hourly.map { hourDto ->
+                    hourMapper.map(day = date, dto = hourDto)
+                }
+            )
+        } else {
+            null
+        }
     }
 }

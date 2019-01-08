@@ -16,8 +16,7 @@ class DayFormatterImpl @Inject constructor(
     private val todayOrTomorrowFormatter = SimpleDateFormat("EEEE", locale)
     private val otherDayFormatter = SimpleDateFormat("dd.MM.yyyy (EEEE)", locale)
 
-    override fun format(day: Date): String {
-        val today = Date()
+    override fun format(day: Date, today: Date): String {
         return when {
             day.isTheSameDayAs(today) -> {
                 "${resProvider.getString(R.string.today_word)} (${todayOrTomorrowFormatter.format(day)})"

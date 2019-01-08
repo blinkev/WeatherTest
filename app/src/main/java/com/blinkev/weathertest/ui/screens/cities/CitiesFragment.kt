@@ -5,8 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,22 +25,17 @@ import com.blinkev.weathertest.ui.screens.cities.di.CitiesFragmentComponentProvi
 import com.blinkev.weathertest.ui.screens.cities.di.CitiesFragmentModule
 import com.blinkev.weathertest.ui.screens.cities.item.CityItem
 import com.blinkev.weathertest.ui.screens.common.item.CommonLoadingItem
-import com.blinkev.weathertest.ui.util.addEnum
-import com.blinkev.weathertest.ui.util.getEnum
 import com.github.nitrico.lastadapter.LastAdapter
 import com.github.nitrico.lastadapter.StableId
 import com.google.android.gms.location.LocationRequest
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cities.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class CitiesFragment : Fragment() {
@@ -240,7 +233,7 @@ class CitiesFragment : Fragment() {
             .doAfterTerminate { disableFirstRunSettingAndShowFab() }
             .subscribeBy(
                 onSuccess = {
-                    viewModel.detectCity(it.latitude, it.longitude)
+                    viewModel.resolveCity(it.latitude, it.longitude)
                 },
                 onError = {
                     hideLoading()
@@ -254,8 +247,10 @@ class CitiesFragment : Fragment() {
     }
 
     private fun hideLoading() {
-        updateList(emptyList())
+        if (isListContainsOnlyLoadingItem()) updateList(emptyList())
     }
+
+    private fun isListContainsOnlyLoadingItem(): Boolean = (listData.size == 1) && (listData[0] is CommonLoadingItem)
 
     private fun updateList(newList: List<StableId>) {
         listData.clear()

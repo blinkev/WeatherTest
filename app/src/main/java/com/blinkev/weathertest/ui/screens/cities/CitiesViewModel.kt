@@ -16,7 +16,7 @@ interface CitiesViewModel : BaseViewModel<CitiesFragmentComponent> {
     fun fetchFirstRunSetting()
     fun disableFirstRunSetting()
 
-    fun detectCity(lat: Double, lon: Double)
+    fun resolveCity(lat: Double, lon: Double)
 
     fun fetchCities()
     fun addCity(name: String)

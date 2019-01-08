@@ -37,7 +37,7 @@ class WeatherFragment : Fragment() {
             .map<ErrorItem, ItemWeatherErrorBinding>(R.layout.item_weather_error) {
                 onBind { viewHolder ->
                     viewHolder.binding.centerLayout.setOnClickListener {
-                        viewModel.fetchWeather()
+                        tryFetchingWeather()
                     }
                 }
             }
@@ -47,18 +47,13 @@ class WeatherFragment : Fragment() {
         setupComponent()
     }
 
-    private fun createCityEntity(): City? = WeatherFragmentArgs.fromBundle(arguments).cityName?.let { name -> City(name) }
+    private fun getCityEntity(): City? = WeatherFragmentArgs.fromBundle(arguments).cityName?.let { name -> City(name) }
 
     private fun setupComponent() {
         val viewModel = ViewModelProviders.of(this).get(WeatherViewModelImpl::class.java)
         val component = viewModel.screenComponent
         if (component == null) {
-            (activity as WeatherFragmentComponentProvider).provide(
-                    WeatherFragmentModule(
-                            viewModel = viewModel,
-                            city = createCityEntity()
-                    )
-            ).apply {
+            (activity as WeatherFragmentComponentProvider).provide(WeatherFragmentModule(viewModel)).apply {
                 viewModel.screenComponent = this
                 inject(this@WeatherFragment)
                 inject(viewModel)
@@ -76,7 +71,6 @@ class WeatherFragment : Fragment() {
 
         adapter.into(listView)
         observeWeather()
-        if (viewModel.weather.value == null) viewModel.fetchWeather()
     }
 
     private fun observeWeather() {
@@ -92,6 +86,11 @@ class WeatherFragment : Fragment() {
                 }
             }
         })
+        if (viewModel.weather.value == null) tryFetchingWeather()
+    }
+
+    private fun tryFetchingWeather() {
+        getCityEntity()?.let { viewModel.fetchWeather(it) }
     }
 
     private fun updateList(newList: List<StableId>) {

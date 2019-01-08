@@ -11,5 +11,9 @@ data class CityWeather(
         val temperature: Int,
         val description: String,
         val iconUrl: String
-    )
+    ) {
+        companion object
+    }
+
+    companion object
 }

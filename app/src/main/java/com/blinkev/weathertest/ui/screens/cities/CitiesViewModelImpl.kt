@@ -17,8 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CitiesViewModelImpl @Inject constructor() : BaseViewModelImpl<CitiesFragmentComponent>(),
-        CitiesViewModel {
+class CitiesViewModelImpl @Inject constructor() : BaseViewModelImpl<CitiesFragmentComponent>(), CitiesViewModel {
 
     companion object {
         private const val CITY_GET_OPERATION = "CITY_GET_OPERATION"
@@ -100,7 +99,7 @@ class CitiesViewModelImpl @Inject constructor() : BaseViewModelImpl<CitiesFragme
             }
     }
 
-    override fun detectCity(lat: Double, lon: Double) {
+    override fun resolveCity(lat: Double, lon: Double) {
         cityRepo.resolveCity(lat, lon)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

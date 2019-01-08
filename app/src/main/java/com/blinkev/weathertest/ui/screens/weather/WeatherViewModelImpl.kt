@@ -14,26 +14,22 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class WeatherViewModelImpl @Inject constructor() : BaseViewModelImpl<WeatherFragmentComponent>(),
-        WeatherViewModel {
+    WeatherViewModel {
 
     @Inject
     lateinit var weatherRepo: CityWeatherRepo
-    @set:Inject
-    var city: City? = null
     @Inject
     lateinit var mapper: WeatherMapper
 
     override val weather = MutableLiveData<DataStatus<List<StableId>>>()
 
-    override fun fetchWeather() {
-        city?.let { city ->
-            weatherRepo.getWeather(city)
-                    .mapData(mapper::map)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .trackAndSubscribe(operationId = weatherRepo.hashCode()) {
-                        weather.value = it
-                    }
-        }
+    override fun fetchWeather(city: City) {
+        weatherRepo.getWeather(city)
+            .mapData(mapper::map)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .trackAndSubscribe(operationId = weatherRepo.hashCode()) {
+                weather.value = it
+            }
     }
 }

@@ -1,12 +1,7 @@
 package com.blinkev.weathertest.data.query.settings.di
 
-import com.blinkev.weathertest.data.query.city.CityRepoQueries
-import com.blinkev.weathertest.data.query.city.CityRepoQueriesImpl
 import com.blinkev.weathertest.data.query.settings.SettingsRepoQueries
 import com.blinkev.weathertest.data.query.settings.SettingsRepoQueriesImpl
-import com.blinkev.weathertest.domain.repo.city.AddCityQuery
-import com.blinkev.weathertest.domain.repo.city.GetCityListQuery
-import com.blinkev.weathertest.domain.repo.city.RemoveCityQuery
 import com.blinkev.weathertest.domain.repo.settings.GetFirstRunQuery
 import com.blinkev.weathertest.domain.repo.settings.SetFirstRunQuery
 import dagger.Module

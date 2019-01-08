@@ -39,6 +39,11 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$androidx_version"
 
     testImplementation "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation("com.nhaarman:mockito-kotlin-kt1.1:$mockito_kotlin_version", {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
+    })
+    testImplementation "android.arch.core:core-testing:$android_arch_testing_version"
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -66,11 +71,11 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
 
     // rx permissions
-    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation "com.github.tbruyelle:rxpermissions:$rx_permission_version"
 
     // rx location
-    compile 'com.patloew.rxlocation:rxlocation:1.0.5'
-    compile 'com.google.android.gms:play-services-location:15.0.0'
+    compile "com.patloew.rxlocation:rxlocation:$rx_location_version"
+    compile "com.google.android.gms:play-services-location:$play_service_location_version"
 
     implementation project(path: ':domain')
     implementation project(path: ':data')

@@ -1,21 +1,16 @@
 package com.blinkev.weathertest.ui.screens.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import com.blinkev.weathertest.domain.entity.City
 import com.blinkev.weathertest.ui.R
 import com.blinkev.weathertest.ui.di.UiComponentHolder
 import com.blinkev.weathertest.ui.screens.activity.di.HostActivityChildComponentProvider
 import com.blinkev.weathertest.ui.screens.activity.di.HostActivityComponent
 import com.blinkev.weathertest.ui.screens.activity.di.HostActivityModule
-import com.blinkev.weathertest.ui.screens.cities.CitiesFragment
-import com.blinkev.weathertest.ui.screens.cities.CitiesRouter
-import com.blinkev.weathertest.ui.screens.weather.WeatherFragment
 import javax.inject.Inject
 
-class HostActivity : AppCompatActivity(), CitiesRouter, HostActivityChildComponentProvider {
+class HostActivity : AppCompatActivity(), HostActivityChildComponentProvider {
 
     override lateinit var screenComponent: HostActivityComponent
 
@@ -25,21 +20,15 @@ class HostActivity : AppCompatActivity(), CitiesRouter, HostActivityChildCompone
     override fun onCreate(savedInstanceState: Bundle?) {
         setupComponent()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_host)
 
-        //if (savedInstanceState == null) showFirstFragment()
+        setContentView(R.layout.activity_host)
     }
 
     private fun setupComponent() {
         val viewModel = ViewModelProviders.of(this).get(HostViewModelImpl::class.java)
         val component = viewModel.screenComponent
         if (component == null) {
-            (application as UiComponentHolder).uiComponent.provide(
-                HostActivityModule(
-                    viewModel = viewModel,
-                    citiesRouter = this
-                )
-            ).apply {
+            (application as UiComponentHolder).uiComponent.provide(HostActivityModule(viewModel)).apply {
                 screenComponent = this
                 viewModel.screenComponent = this
                 inject(this@HostActivity)
@@ -48,18 +37,5 @@ class HostActivity : AppCompatActivity(), CitiesRouter, HostActivityChildCompone
             screenComponent = component
             component.inject(this)
         }
-    }
-
-    /*private fun showFirstFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.containerView, CitiesFragment())
-            .commit()
-    }*/
-
-    override fun routeToCityWeather(city: City) {
-        /*supportFragmentManager.beginTransaction()
-                .replace(R.id.containerView, WeatherFragment.newInstance(city))
-                .addToBackStack(WeatherFragment::class.java.name)
-                .commit()*/
     }
 }
